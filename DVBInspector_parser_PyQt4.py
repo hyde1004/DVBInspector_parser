@@ -10,7 +10,8 @@ class Example(QtGui.QWidget):
 		self.tree = QtGui.QTreeWidget()
 		self.setGeometry(300, 300, 250, 150)
 		self.LoadFile()
-		self.show()
+#		self.show()
+		self.tree.show()		
 
 	def LoadFile(self):
 		in_file = open('PSI-TS-5CLEAR_08102015.txt', 'rt')
@@ -29,17 +30,17 @@ class Example(QtGui.QWidget):
 			if pos >= 0:
 				text = string[pos+2:]
 				parent = depths[level-1]
-				item = QTreeWidgetItem(parent, [text])
+				item = QtGui.QTreeWidgetItem(parent, [text])
 				depths = depths[0:level]
 				depths.append(item) 
 			else:
 				text = string
-				item = QTreeWidgetItem(tree, [text])
+				item = QtGui.QTreeWidgetItem(self.tree, [text])
 				depths = []
 				depths.append(item)
 
-			tree.setGeometry(300, 300, 900, 500)
-		tree.show()		
+			self.tree.setGeometry(300, 300, 900, 500)
+#		self.tree.show()		
 
 
 def main():
