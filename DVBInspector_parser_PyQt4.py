@@ -1,21 +1,22 @@
 import sys
 from PyQt4 import QtGui
 
-class Example(QtGui.QWidget):
+class Example(QtGui.QMainWindow):
 	def __init__(self):
 		super(Example, self).__init__()
 		self.initUI()
 
 	def initUI(self):
-		self.tree = QtGui.QTreeWidget()
-		self.setGeometry(300, 300, 250, 150)
+		self.tree = QtGui.QTreeWidget(self)
+		self.setCentralWidget(self.tree)
+		self.setGeometry(300, 300, 500, 500)
 		self.LoadFile()
-#		self.show()
-		self.tree.show()		
+		self.show()
 
 	def LoadFile(self):
 		in_file = open('PSI-TS-5CLEAR_08102015.txt', 'rt')
 		strings = in_file.readlines()
+		in_file.close()
 		depths = []
 
 		for string in strings:
@@ -38,10 +39,6 @@ class Example(QtGui.QWidget):
 				item = QtGui.QTreeWidgetItem(self.tree, [text])
 				depths = []
 				depths.append(item)
-
-			self.tree.setGeometry(300, 300, 900, 500)
-#		self.tree.show()		
-
 
 def main():
 	app = QtGui.QApplication(sys.argv)
