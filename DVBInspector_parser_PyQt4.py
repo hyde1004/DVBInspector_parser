@@ -26,7 +26,6 @@ class Example(QtGui.QMainWindow):
 
 	def showDialog(self):
 		fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file')
-		print(fname)
 		try:
 			self.LoadFile(fname)
 		except:
