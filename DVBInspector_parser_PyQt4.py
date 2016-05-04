@@ -7,14 +7,28 @@ class Example(QtGui.QMainWindow):
 		self.initUI()
 
 	def initUI(self):
+		openFile = QtGui.QAction('Open', self)
+		openFile.triggered.connect(self.showDialog)
+
+		menubar = self.menuBar()
+		fileMenu = menubar.addMenu('&File')
+		fileMenu.addAction(openFile)
+
 		self.tree = QtGui.QTreeWidget(self)
 		self.setCentralWidget(self.tree)
+
 		self.setGeometry(300, 300, 500, 500)
-		self.LoadFile()
 		self.show()
 
-	def LoadFile(self):
-		in_file = open('PSI-TS-5CLEAR_08102015.txt', 'rt')
+	def showDialog(self):
+		fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file')
+		try:
+			self.LoadFile(filename)
+		except:
+			print('open error')
+
+	def LoadFile(self, filename):
+		in_file = open(filename, 'rt')
 		strings = in_file.readlines()
 		in_file.close()
 		depths = []
