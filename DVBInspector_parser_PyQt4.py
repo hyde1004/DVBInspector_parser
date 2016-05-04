@@ -1,4 +1,5 @@
 import sys
+import platform
 from PyQt4 import QtGui
 
 class Example(QtGui.QMainWindow):
@@ -11,6 +12,9 @@ class Example(QtGui.QMainWindow):
 		openFile.triggered.connect(self.showDialog)
 
 		menubar = self.menuBar()
+		if platform.system() == 'Darwin':	# for Mac OS
+			menubar.setNativeMenuBar(False)
+
 		fileMenu = menubar.addMenu('&File')
 		fileMenu.addAction(openFile)
 
@@ -22,13 +26,14 @@ class Example(QtGui.QMainWindow):
 
 	def showDialog(self):
 		fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file')
+		print(fname)
 		try:
-			self.LoadFile(filename)
+			self.LoadFile(fname)
 		except:
 			print('open error')
 
 	def LoadFile(self, filename):
-		in_file = open(filename, 'rt')
+		in_file = open(filename, 'rt', encoding='cp949')
 		strings = in_file.readlines()
 		in_file.close()
 		depths = []
